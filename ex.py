@@ -56,7 +56,6 @@ def astar(maze, start, end):
         # check if the node is lowest cost
         for index, item in enumerate(open_list):
             if item.f < current_node.f:
-                print(item.position)
                 current_node = item
                 current_index = index
 
@@ -96,13 +95,13 @@ def astar(maze, start, end):
             # Append
             children.append(new_node)
 
+        is_closed = False
+
         # Loop through children
         for child in children:
-
             # Child is on the closed list
-            for closed_child in closed_list:
-                if child == closed_child:
-                    continue
+            if child in closed_list:
+                continue
 
             # Create the f, g, and h values
             child.g = current_node.g + 1
