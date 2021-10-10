@@ -95,8 +95,6 @@ def astar(maze, start, end):
             # Append
             children.append(new_node)
 
-        is_closed = False
-
         # Loop through children
         for child in children:
             # Child is on the closed list
@@ -109,10 +107,14 @@ def astar(maze, start, end):
                        2) + ((child.position[1] - end_node.position[1]) ** 2)
             child.f = child.g + child.h
 
+            skipped = []
             # Child is already in the open list
             for open_node in open_list:
                 if child == open_node and child.g > open_node.g:
-                    continue
+                    skipped.append(child)
+
+            if child in skipped:
+                continue
 
             # Add the child to the open list
             open_list.append(child)
@@ -128,7 +130,7 @@ if __name__ == '__main__':
             [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
             [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 1, 0, 1, 1],
             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]]
 
