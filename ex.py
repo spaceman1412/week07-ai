@@ -48,12 +48,6 @@ def astar(maze, start, end):
         # Get the current node
         current_node = open_list[0]
         current_index = 0
-
-        # # print("Current node" + str(current_node.position))
-        # for index, item in enumerate(closed_list):
-        #     print("The index " + str(item.position))
-
-        # check if the node is lowest cost
         for index, item in enumerate(open_list):
             if item.f < current_node.f:
                 current_node = item
@@ -97,7 +91,15 @@ def astar(maze, start, end):
 
         # Loop through children
         for child in children:
+
             # Child is on the closed list
+            # for closed_child in closed_list:
+            # This continue function not working properly so the current
+            # node still be in the closed list so it not working
+            #     if child == closed_child:
+            #         continue
+
+            # Fixed function
             if child in closed_list:
                 continue
 
@@ -107,14 +109,10 @@ def astar(maze, start, end):
                        2) + ((child.position[1] - end_node.position[1]) ** 2)
             child.f = child.g + child.h
 
-            skipped = []
             # Child is already in the open list
             for open_node in open_list:
                 if child == open_node and child.g > open_node.g:
-                    skipped.append(child)
-
-            if child in skipped:
-                continue
+                    continue
 
             # Add the child to the open list
             open_list.append(child)
@@ -130,7 +128,7 @@ if __name__ == '__main__':
             [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
             [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 0, 0, 1, 0, 1, 1],
+            [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]]
 
