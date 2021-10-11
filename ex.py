@@ -60,11 +60,16 @@ def astar(maze, start, end):
         # Check if we found the goal
         if current_node == end_node:
             path = []
+            cost = []
+            list = []
             current = current_node
             while current is not None:
                 path.append(current.position)
+                cost.append(current.f)
                 current = current.parent
-            return path[::-1]  # Return reversed path
+            list.append(path[::-1])
+            list.append(cost[::-1])
+            return list  # Return reversed path
 
         # Expansion: Generate children
         children = []
@@ -135,5 +140,10 @@ if __name__ == '__main__':
     start = (0, 0)
     goal = (8, 9)
 
-    path = astar(maze, start, goal)
-    print(path)
+    list = astar(maze, start, goal)
+
+    path = list[0]
+    cost = list[1]
+
+    for i in range(len(path)):
+        print(str(path[i]) + ": " + str(cost[i]))
